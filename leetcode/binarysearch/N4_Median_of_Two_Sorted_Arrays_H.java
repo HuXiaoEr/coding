@@ -30,23 +30,10 @@ Examples:
 For this problem, what you should do is find the median after merging this two ordered array.
  */
 public class N4_Median_of_Two_Sorted_Arrays_H {
-	
-	//YES
-	//o(m+n)
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int[] res = new int[nums1.length+nums2.length];
-        int idx1 = 0;
-        int idx2 = 0;
-        int idx = 0;
-        while(idx < res.length){
-        	if(idx1 >= nums1.length) res[idx++] = nums2[idx2++];
-        	else if(idx2 >= nums2.length) res[idx++] = nums1[idx1++];
-        	else res[idx++] = (nums1[idx1] > nums2[idx2] ? nums1[idx1++] : nums2[idx2++]);
-        }
-    	return (res.length & 1) == 0 ? ((double)res[res.length >> 1] + (double)res[(res.length >> 1)+1]) / 2 : ((double)res[res.length >> 1]) / 2;
-    }
     
-    //
+	// https://discuss.leetcode.com/topic/5728/share-one-divide-and-conquer-o-log-m-n-method-with-clear-description
+	
+	//
     public double findMedianSortedArrays3(int[] nums1, int[] nums2) {
         //Get the middle element
         int mid = (nums2.length+nums1.length+1)/2;
@@ -92,7 +79,7 @@ public class N4_Median_of_Two_Sorted_Arrays_H {
     //O(log(min(M,N)))
     public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
         int N1 = nums1.length, N2 = nums2.length;
-        if (N1 > N2) return findMedianSortedArrays(nums2, nums1);
+        if (N1 > N2) return findMedianSortedArrays2(nums2, nums1);
         
         int lo = 0, hi = 2 * N1;
         while (lo <= hi) {

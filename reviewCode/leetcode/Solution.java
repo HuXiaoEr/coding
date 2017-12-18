@@ -8,24 +8,23 @@ public class Solution {
         else return find(nums1, 0, nums1.length-1, nums2, 0, nums2.length-1, len/2);
     }
     private static double find(int[] nums1, int lo1, int hi1, int[] nums2, int lo2, int hi2, int k) {
-    	if((lo1 == hi1 || hi1-lo1 == 1) && (lo2 == hi2 || hi2-lo2 == 1) && k == 0){
-    		if(nums1[lo1] < nums2[lo2]) return nums1[lo1];
-    		else return nums2[lo2];
-    	}
+    	if(lo1 > hi1) return nums2[lo2+k];
+    	if(lo2 > hi2) return nums1[lo1+k];
+    	
     	int mid1 = ((hi1 - lo1) >> 1) + lo1;
     	int mid2 = ((hi2 - lo2) >> 1) + lo2;
-    	if(k >= mid1+mid2+1){
-    		if(nums1[mid1] >= nums2[mid2]) return find(nums1, lo1, hi1, nums2, mid2, hi2, k-mid2);
-    		else return find(nums1, mid1, hi1, nums2, lo2, hi2, k-mid1);
+    	if(k >= mid1-lo1+mid2-lo2){
+    		if(nums1[mid1] >= nums2[mid2]) return find(nums1, lo1, hi1, nums2, mid2+1, hi2, k-(mid2-lo2+1)-1);
+    		else return find(nums1, mid1+1, hi1, nums2, lo2, hi2, k-(mid1-lo1+1)-1);
     	}
     	else{
-    		if(nums1[mid1] >= nums2[mid2]) return find(nums1, lo1, mid1, nums2, lo2, hi2, k);
-    		else return find(nums1, lo1, hi1, nums2, lo2, mid2, k);
+    		if(nums1[mid1] >= nums2[mid2]) return find(nums1, lo1, mid1-1, nums2, lo2, hi2, k);
+    		else return find(nums1, lo1, hi1, nums2, lo2, mid2-1, k);
     	}
 	}
 	public static void main(String[] args) {
-		System.out.println(new Solution().longestPalindrome55("babcbabcbaccba"));
-				//findMedianSortedArrays(new int[]{1,3}, new int[]{2}));
+		//System.out.println(new Solution().longestPalindrome55("babcbabcbaccba"));
+		System.out.println(new Solution().findMedianSortedArrays(new int[]{1,3}, new int[]{2}));
 	}
 	
 	public String longestPalindrome55(String s) {
