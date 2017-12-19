@@ -23,9 +23,31 @@ Your function should return 0 when the reversed integer overflows.
  */
 
 // NO
-//ÔõÃ´ÅĞ¶ÏÒç³ö 
+// how to judge the overflow
 public class N7_Reverse_Integer_E {
+	
+	// my code 
+	// bad
+	// bad performance
+    public static int reverse12(int x) {
+        if(x == -2147483648) return 0;  // attention : -x = x;
+        long res = 0;
+        boolean neg = false;
+        if(x < 0){
+        	neg = true;
+        	x = -x;
+        }
+        while(x != 0){
+        	int rem = x % 10;
+        	res = res * 10 + rem;
+        	x /= 10;
+        	if((!neg && res > Integer.MAX_VALUE) || (neg && -res < Integer.MIN_VALUE)) return 0;
+        }
+        if(neg) res = -res;
+        return (int)res;
+    }
 
+    // not my code
 	public int reverse(int x) {
 		int result = 0;
 		while (x != 0) {
