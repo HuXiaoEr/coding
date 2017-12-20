@@ -85,6 +85,42 @@ public class N10_Regular_Expression_Matching_H {
     	return dp[s.length()][p.length()];
     }
 	
+	// my 1D space
+	// important : every point(i, j) need to be deassigned, no default
+	// do not forget annotation
+    public boolean isMatch333(String s, String p) {
+    	if(s == null || p == null) return false;
+    	boolean[] dp = new boolean[p.length()+1];
+        dp[0] = true;
+        boolean pre;
+        boolean now;
+        for(int i = 1; i <= p.length(); i++){
+            if(p.charAt(i-1) == '*') dp[i] = dp[i-2];
+        }
+        for(int i = 1; i <= s.length(); i++){
+            pre = dp[0];  // initialize res
+            dp[0] = false; // every point(i, j) need to be deassigned, no default 
+        	for(int j = 1; j <= p.length(); j++){
+        			now = dp[j];
+        			if(s.charAt(i-1) == p.charAt(j-1) || p.charAt(j-1) == '.'){
+        				dp[j] = pre;
+        			}
+        			else if(p.charAt(j-1) == '*'){
+        				if(j >= 2 && (s.charAt(i-1) == p.charAt(j-2) || p.charAt(j-2) == '.')){
+        					dp[j] = dp[j-1] || dp[j-2] || now;
+        				}
+        				else{
+        					dp[j] = dp[j-2];
+        				}
+        			}
+        			else dp[j] = false;  // every point(i, j) need to be deassigned, no default 
+        			pre = now;
+        		}
+        }
+        return dp[p.length()];
+
+    }   
+	
 	// not my code
 	public boolean isMatch2(String str, String regex) {
         boolean[][] dp = new boolean[str.length() + 1][regex.length() + 1];
