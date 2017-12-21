@@ -31,6 +31,22 @@ public class N20_Valid_Parentheses_E {
     	return stack.isEmpty();  // attention : stack.isEmpty()
     }
 	
+	// my code 
+	// be careful
+    public boolean isValid222(String s) {
+    	Deque<Character> stack = new LinkedList<Character>();
+    	for(int i = 0; i < s.length(); i++){
+    		if(s.charAt(i) == '(') stack.push(')');
+    		else if(s.charAt(i) == '{') stack.push('}');
+    		else if(s.charAt(i) == '[') stack.push(']');
+    		else if(!stack.isEmpty() && s.charAt(i) == stack.peek()){
+    			stack.pop();
+    		}
+    		else return false;
+    	}
+    	return stack.isEmpty();
+    }
+	
 	//excellent
 	public boolean isValid2(String s) {
 		Stack<Character> stack = new Stack<Character>();
@@ -46,6 +62,7 @@ public class N20_Valid_Parentheses_E {
 		}
 		return stack.isEmpty();
 	}
+	
 	
 	//without ( ) [] {} in code
 	public boolean isValid3(String s) {

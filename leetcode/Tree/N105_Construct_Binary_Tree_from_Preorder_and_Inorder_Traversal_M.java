@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import JzOffer.N6_Ç°ÐòºÍÖÐÐòÖØ½¨¶þ²æÊ÷.TreeNode;
 
 /**
 Given preorder and inorder traversal of a tree, construct the binary tree.
@@ -20,7 +19,7 @@ public class N105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal_M {
 		return buildTree(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1);
     }
 	private TreeNode buildTree(int[] preorder, int pb, int pe, int[] inorder, int ib, int ie) {
-		if(pb > pe || ib > ie) return null;  //donnot forget this  ·ñÔò p18 ArrayIndexOutOfBoundary
+		if(pb > pe || ib > ie) return null;  //donnot forget this  ï¿½ï¿½ï¿½ï¿½ p18 ArrayIndexOutOfBoundary
 		TreeNode root = new TreeNode(preorder[pb]);
 		int rootIdx = 0;
 		for(int i = ib; i <= ie; i++){
